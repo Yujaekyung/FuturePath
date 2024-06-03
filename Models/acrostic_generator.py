@@ -2,17 +2,17 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-MAX_LENGTH = 3
+MAX_LENGTH = 20  
 
 
 class InputModel(BaseModel):
-    word: str = Field(
-        alias='word',
-        description='삼행시에 사용될 초성 단어를 입력해주세요!',
-        default='지스트',
-        min_length=MAX_LENGTH,
+    major: str = Field(
+        alias='major',
+        description='현재 재학 중인 학과를 입력해주세요!',
+        default='컴퓨터공학',
+        min_length=1,
         max_length=MAX_LENGTH,
-        pattern=rf'^[a-z|가-힣]{{{MAX_LENGTH}}}$',
+        pattern=rf'^[a-zA-Z가-힣\s]{{1,{MAX_LENGTH}}}$',
     )
 
     llm_type: Literal['chatgpt', 'huggingface'] = Field(
@@ -23,6 +23,6 @@ class InputModel(BaseModel):
 
 
 class OutputModel(BaseModel):
-    output: str = Field(
-        description='삼행시 결과물',
+    career_suggestions: str = Field(
+        description='학과에 맞는 진로 제시',
     )

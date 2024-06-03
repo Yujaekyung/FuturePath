@@ -23,7 +23,7 @@ store = LLMStore()
 
 
 @router.post(f'/func/{NAME}')
-async def call_acrostic_generator(model: InputModel) -> OutputModel:
+async def call_career_suggestions(model: InputModel) -> OutputModel:
     # Create a LLM chain
     chain = build(
         name=NAME,
@@ -31,7 +31,7 @@ async def call_acrostic_generator(model: InputModel) -> OutputModel:
     )
 
     return OutputModel(
-        output=chain.invoke({
-            'input_context': model.word,
+        career_suggestions=chain.invoke({
+            'input_context': model.major,
         }),
     )
